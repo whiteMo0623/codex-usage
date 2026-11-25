@@ -1,0 +1,16 @@
+{
+  "name": "codex-usage",
+  "version": "1.0.1",
+  "description": "查看 Codex 订阅额度和本地 Token 用量。",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Codex Usage",
+    "shortDescription": "Codex 用量仪表盘",
+    "longDescription": "查看 5 小时及每周额度、每日 Token 用量，以及会话、项目和模型明细。",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "brandColor": "#2074E8",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  }
+}

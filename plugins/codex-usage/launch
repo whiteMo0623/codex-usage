@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+plugin_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+bundled_node=/Applications/ChatGPT.app/Contents/Resources/node
+if [ -x "$bundled_node" ]; then
+  exec "$bundled_node" "$plugin_dir/server.mjs"
+fi
+exec node "$plugin_dir/server.mjs"

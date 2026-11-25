@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Usage</title>
+  <!-- STYLE -->
+</head>
+<body>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-refresh" viewBox="0 0 20 20"><path d="M16 7a6.5 6.5 0 1 0 .27 5.5M16 3.5V7h-3.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6.6"/><path d="M10 6.5v3.8l2.5 1.6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 20 20"><rect x="3.4" y="4.8" width="13.2" height="12" rx="2.3"/><path d="M6.7 3.2v3.2m6.6-3.2v3.2m-9.7 2.1h12.8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 20 20"><circle cx="8.6" cy="8.6" r="4.9"/><path d="m12.2 12.2 3.7 3.7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 20 20"><path d="m6.5 6.5 7 7m0-7-7 7"/></symbol>
+    <symbol id="i-down" viewBox="0 0 20 20"><path d="m6 8 4 4 4-4"/></symbol>
+    <symbol id="i-next" viewBox="0 0 20 20"><path d="m8 6 4 4-4 4"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 20 20"><path d="m12 6-4 4 4 4"/></symbol>
+    <symbol id="i-order" viewBox="0 0 20 20"><path d="M10 4.5v10.7m-3.7-3.7 3.7 3.7 3.7-3.7"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 20 20"><path d="M16.2 9.3c0 3.2-2.8 5.2-6.2 5.2-.65 0-1.3-.07-1.9-.23l-3.15 1.35.68-2.65A4.6 4.6 0 0 1 3.8 9.3c0-3 2.8-5.2 6.2-5.2s6.2 2.2 6.2 5.2Z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 20 20"><path d="M4 5.4h3l1.4 1.45h6.75c1 0 1.6.65 1.6 1.6v5.2c0 .95-.65 1.6-1.6 1.6H4.8c-.95 0-1.6-.65-1.6-1.6V6.2c0-.44.36-.8.8-.8Z"/></symbol>
+    <symbol id="i-model" viewBox="0 0 20 20"><rect x="5.1" y="5.1" width="9.8" height="9.8" rx="1.7"/><path d="M8.3 3.4v1.7m3.4-1.7v1.7m-3.4 9.8v1.7m3.4-1.7v1.7M3.4 8.3h1.7m-1.7 3.4h1.7m9.8-3.4h1.7m-1.7 3.4h1.7"/></symbol>
+  </svg>
+  <header class="toolbar">
+    <div class="shell toolbar-inner">
+      <h1>用量概览</h1>
+      <div class="toolbar-actions">
+        <span id="updated" class="updated" aria-live="polite"></span>
+        <label class="auto-control" title="每分钟自动刷新">
+          <input id="auto" type="checkbox" role="switch" checked>
+          <span class="toggle" aria-hidden="true"></span>
+          <span>自动刷新</span>
+        </label>
+        <button type="button" class="icon-button refresh" id="refresh" aria-label="立即刷新" title="立即刷新">
+          <svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="shell content">
+    <p id="notice" class="notice" role="status" hidden></p>
+    <section aria-labelledby="quota-title">
+      <div class="section-head"><h2 id="quota-title">订阅额度</h2></div>
+      <div class="surface quotas">
+        <article class="quota" id="fiveHours" data-state="pending">
+          <h3><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>5 小时</h3>
+          <div class="quota-value"><span class="percent">—</span><span class="remaining" hidden>剩余</span></div>
+          <div class="track" role="meter" aria-label="5 小时剩余额度" aria-valuemin="0" aria-valuemax="100" aria-hidden="true"><span></span></div>
+          <div class="quota-footer"><time class="reset">读取中…</time><span class="countdown" hidden></span></div>
+        </article>
+        <article class="quota" id="weekly" data-state="pending">
+          <h3><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>每周</h3>
+          <div class="quota-value"><span class="percent">—</span><span class="remaining" hidden>剩余</span></div>
+          <div class="track" role="meter" aria-label="每周剩余额度" aria-valuemin="0" aria-valuemax="100" aria-hidden="true"><span></span></div>
+          <div class="quota-footer"><time class="reset">读取中…</time><span class="countdown" hidden></span></div>
+        </article>
+      </div>
+    </section>
+    <section aria-labelledby="chart-title">
+      <div class="section-head">
+        <h2 id="chart-title">每日 Token</h2>
+        <div id="range" class="segments" role="group" aria-label="图表时间范围">
+          <button type="button" data-value="7" aria-pressed="true">7 天</button>
+          <button type="button" data-value="30" aria-pressed="false">30 天</button>
+          <button type="button" data-value="all" aria-pressed="false">全部</button>
+        </div>
+      </div>
+      <div class="surface chart-card" id="chart-card">
+        <div class="chart-heading">
+          <div class="chart-total"><span id="chart-total">—</span><span class="unit">Token</span></div>
+          <div class="chart-dates" id="chart-dates"></div>
+        </div>
+        <div class="chart" id="chart">
+          <div class="chart-layout">
+            <div class="plot-viewport">
+              <div class="grid-lines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="plot-scroll" id="plot-scroll">
+                <div class="bars" id="bars" role="group" aria-label="按日统计的 Token 柱状图"></div>
+              </div>
+              <div class="chart-empty" id="chart-empty">读取中…</div>
+            </div>
+            <div class="y-axis" id="y-axis" aria-hidden="true"></div>
+          </div>
+          <div class="chart-tip" id="chart-tip" role="tooltip" hidden><span></span><strong></strong></div>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="details-title">
+      <div class="section-head">
+        <h2 id="details-title">用量明细</h2>
+        <div id="scope" class="segments" role="group" aria-label="统计维度">
+          <button type="button" data-value="sessions" aria-pressed="true">会话</button>
+          <button type="button" data-value="projects" aria-pressed="false">项目</button>
+          <button type="button" data-value="models" aria-pressed="false">模型</button>
+        </div>
+      </div>
+      <div class="surface details">
+        <div class="filters">
+          <div class="search">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+            <input id="search" type="search" placeholder="搜索会话" aria-label="搜索会话" maxlength="160" autocomplete="off" spellcheck="false">
+            <button type="button" class="clear icon-button" id="clear" aria-label="清除搜索" title="清除搜索" hidden><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+          </div>
+          <div class="sort-control">
+            <label class="sort-select" for="sort">
+              <select id="sort" aria-label="排序依据">
+                <option value="total">Token 总量</option>
+                <option value="updatedAt">最近活动</option>
+                <option value="name">名称</option>
+                <option value="input">输入</option>
+                <option value="output">输出</option>
+                <option value="cached">缓存</option>
+                <option value="reasoning">推理</option>
+              </select>
+              <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>
+            </label>
+            <button type="button" id="direction" class="icon-button direction" aria-label="降序，切换为升序" title="降序，切换为升序"><svg class="icon" aria-hidden="true"><use href="#i-order"/></svg></button>
+          </div>
+        </div>
+        <table aria-label="Token 用量明细" id="usage-table" aria-busy="true">
+          <colgroup><col class="name-column"><col class="total-column"><col class="metric-column" span="4"></colgroup>
+          <thead><tr>
+            <th scope="col" id="row-kind">会话</th>
+            <th scope="col" data-sort="total" aria-sort="descending"><button type="button" class="sort-header" data-sort="total">总量</button></th>
+            <th scope="col" class="wide" data-sort="input"><button type="button" class="sort-header" data-sort="input" title="输入总量，含缓存">输入</button></th>
+            <th scope="col" class="wide" data-sort="output"><button type="button" class="sort-header" data-sort="output" title="输出总量，含推理">输出</button></th>
+            <th scope="col" class="wide" data-sort="cached"><button type="button" class="sort-header" data-sort="cached" title="命中的输入缓存">缓存</button></th>
+            <th scope="col" class="wide" data-sort="reasoning"><button type="button" class="sort-header" data-sort="reasoning">推理</button></th>
+          </tr></thead>
+          <tbody id="rows"><tr class="placeholder"><td colspan="6">读取中…</td></tr></tbody>
+        </table>
+        <div class="pagination" id="pages" hidden>
+          <span id="page-count"></span>
+          <button type="button" class="icon-button" id="previous" aria-label="上一页" title="上一页"><svg class="icon" aria-hidden="true"><use href="#i-prev"/></svg></button>
+          <button type="button" class="icon-button" id="next" aria-label="下一页" title="下一页"><svg class="icon" aria-hidden="true"><use href="#i-next"/></svg></button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- SCRIPT -->
+</body>
+</html>

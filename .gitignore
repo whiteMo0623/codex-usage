@@ -1,0 +1,52 @@
+# OS and editor files
+.DS_Store
+.AppleDouble
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Dependencies, build and test outputs
+node_modules/
+.pnpm-store/
+.yarn/cache/
+__pycache__/
+.venv/
+dist/
+build/
+coverage/
+.cache/
+playwright-report/
+test-results/
+
+# Local runtime state, sessions, and logs
+.codex/
+logs/
+sessions/
+archived_sessions/
+*.log
+*.jsonl
+*.jsonl.zst
+*.sqlite*
+*.db*
+*.tmp
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.local
+*.local.*
+/auth.json
+/config.toml
+credentials.json
+secrets.json
+.netrc
+.ssh/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
